@@ -1,0 +1,101 @@
+Palindrome String
+Given a string str, determine if it is a palindrome, considering only alphabetic characters and ignoring the upper or lower case. Return 0 if it is not a palindrome, else return 1.
+
+Input Format
+Input consists of one line
+
+The first line given is a string str.
+
+Output Format
+Returns 0 if it is not a palindrome, else return 1 if it is a palindrome
+
+Example 1
+Input
+
+race a car
+Output
+
+0
+Explanation
+
+Not a palindrome
+
+Example 2
+Input
+
+a man, a plan, a canal Panama
+Output
+
+1
+Explanation
+
+It is a palindrome.
+
+Constraints
+1 <= str.length <= 10000
+
+Topics
+Recursion
+Strings
+2-Pointers
+
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	static int isPalindrome(String str)
+    {
+        // STEP 1 -- Make another string with only alphabetic characters
+        // and convert upper case letter to lower case 
+        
+        // String originalString = "";
+        StringBuilder originalString = new StringBuilder("");
+        
+        int l = str.length();
+        
+        for(int i=0; i<l; i=i+1)
+        {
+            char currentChar = str.charAt(i);
+            int asciiValue = currentChar;
+            
+            if(asciiValue >= 65 && asciiValue <= 90) // Upper case 
+            {
+                asciiValue = asciiValue + 32; // Convert to lower case 
+                
+                char newCharacter = (char)asciiValue;
+                
+                originalString.append(newCharacter);
+            }
+            else if(asciiValue >= 97 && asciiValue <= 122) // Lower case 
+            {
+                originalString.append(currentChar);
+            }
+        }
+        
+        // STEP 2 -- Check palindrome in that string using TWO POINTER 
+        
+        int i = 0;
+        int j = originalString.length() - 1;
+        
+        while(i < j)
+        {
+            if(originalString.charAt(i) != originalString.charAt(j))
+            {
+                return 0;
+            }
+            
+            i = i+1;
+            j = j-1;
+        }
+        
+        return 1;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str=sc.nextLine();
+        int result = isPalindrome(str);
+        System.out.println(result);        
+    }
+}
+
